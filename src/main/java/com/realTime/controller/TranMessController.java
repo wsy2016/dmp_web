@@ -60,6 +60,7 @@ public class TranMessController implements BaseController {
 
     }
 
+    public void
 
     private class kafkaThread implements Runnable {
         private String threadName;

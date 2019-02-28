@@ -14,8 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.validation.constraints.Max;
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Description:
@@ -52,12 +54,12 @@ public class HMsgHandler {
     }
 
 
-    public void flush() {
+    public void flush() throws IOException {
         synchronized (LOCK_DATA) {
-            for(String tableName : vector.keySet()){
+            for (String tableName : vector.keySet()) {
                 List<Put> puts = vector.remove(tableName);
-                if(puts != null && puts.size()>0){
-                    HbaseHelp.put(tableName,puts);
+                if (puts != null && puts.size() > 0) {
+                    hbaseHelp.put(tableName, puts);
                 }
             }
         }
@@ -80,19 +82,33 @@ public class HMsgHandler {
     }
 
 
-    public void start(){
-        for (int i = 0; i <5 ; i++) {
+    public void start() {
+        for (int i = 0; i < 5; i++) {
             LogWriterThread thread = new LogWriterThread();
-            thread.setName(StringUtils.join(this.getClass().getSimpleName()));
+            thread.setName(StringUtils.join(this.getClass().getSimpleName(), "_", i));
         }
 
     }
 
-   class LogWriterThread extends Thread{
+    class LogWriterThread extends Thread {
         @Override
-       public void run(){
+        public void run() {
+            while (true) {
+                if (vector.size() > 0) {
+                    try {
+                        flush();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        TimeUnit.MICROSECONDS.sleep(10);
+                    } catch (InterruptedException e) {
 
+                    }
+                }
+            }
         }
-   }
+    }
 
 }
