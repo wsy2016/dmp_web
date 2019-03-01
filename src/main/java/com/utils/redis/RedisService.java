@@ -1,6 +1,7 @@
 package com.utils.redis;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisSentinelPool;
@@ -17,7 +18,7 @@ import static com.beans.GlobalConstants.*;
 @Service
 public class RedisService {
 
-    //@Autowired
+    //@Autowired 没有集群不能初始化
     private JedisSentinelPool jedisSentinelPool;
 
 

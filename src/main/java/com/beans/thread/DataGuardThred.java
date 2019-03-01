@@ -2,7 +2,6 @@ package com.beans.thread;
 
 import com.google.common.collect.Queues;
 import com.realTime.controller.TranMessController;
-import org.hibernate.validator.constraints.EAN;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +11,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Description:
+ * Description: 容灾备份线程
  * <p>
  * Author: wsy
  * <p>

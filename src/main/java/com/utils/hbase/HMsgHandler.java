@@ -1,19 +1,15 @@
-package com.handler;
+package com.utils.hbase;
 
 import com.beans.GlobalConstants;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.realTime.controller.TranMessController;
-import com.utils.hbase.HbaseHelp;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.util.Bytes;
-import org.apache.hadoop.yarn.logaggregation.AggregatedLogFormat;
-import org.apache.hadoop.yarn.webapp.hamlet.Hamlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.Max;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ConcurrentMap;
@@ -26,6 +22,7 @@ import java.util.concurrent.TimeUnit;
  * <p>
  * Date: 2019/2/27 10:33
  */
+@Service
 public class HMsgHandler {
 
     private final static Logger logger = LoggerFactory.getLogger(HMsgHandler.class);

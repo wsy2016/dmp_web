@@ -5,13 +5,14 @@ import com.beans.thread.DataGuardThred;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.handler.HMsgHandler;
+import com.utils.hbase.HMsgHandler;
 import com.realTime.controller.base.BaseController;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.nustaq.serialization.FSTConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -50,14 +51,14 @@ public class TranMessController implements BaseController {
     //自带线程安全光环 在多线程处理中所有要判断的地方都要
     private AtomicBoolean shutdown = new AtomicBoolean(true);
 
-
-    private HMsgHandler hMsgHandler;
-
     DataGuardThred guardThred;
 
     private String topic;
 
     private String tableName = "EVEN_MESS_XZT";
+
+    @Autowired
+    private HMsgHandler hMsgHandler;
 
     @Override
     public void init() {

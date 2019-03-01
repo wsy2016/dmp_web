@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisSentinelPool;
@@ -20,50 +21,49 @@ import java.util.Set;
  * <p>
  * Date: 2019/1/24 16:11
  */
-@Configurable
+@Configuration
 @PropertySource("classpath:conf/redis.properties")
 @ConfigurationProperties(prefix = "spring.redis")
 public class RedisConfig {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private String database;
 
 
     /**
      * 节点名称
      */
-    private String nodes;
+    private String nodes ="192.168.1.205:26379,192.168.1.206:26379,192.168.1.207:26379";
 
     /**
      * Redis服务名称
      */
-    private String masterName;
+    private String masterName ="artisanRedis";
 
     /**
      * 密码
      */
-    private String password;
+    private String password ="abc123456";
 
     /**
      * 最大连接数
      */
-    private int maxTotal;
+    private int maxTotal =10000;
 
     /**
      * 最大空闲数
      */
-    private int maxIdle;
+    private int maxIdle =100;
 
     /**
      * 最小空闲数
      */
-    private int minIdle;
+    private int minIdle =100;
 
     /**
      * 连接超时时间
      */
-    private int timeout;
+    private int timeout = 1000;
 
 
     /**
