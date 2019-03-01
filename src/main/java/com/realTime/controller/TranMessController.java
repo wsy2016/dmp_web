@@ -7,6 +7,7 @@ import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.utils.hbase.HMsgHandler;
 import com.realTime.controller.base.BaseController;
+import com.utils.kafka.PoolKafkaProducer;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.nustaq.serialization.FSTConfiguration;
@@ -60,6 +61,9 @@ public class TranMessController implements BaseController {
     @Autowired
     private HMsgHandler hMsgHandler;
 
+    @Autowired
+    private PoolKafkaProducer kafkaProducer;
+
     @Override
     public void init() {
         logger.info("开启线程池");
@@ -79,7 +83,7 @@ public class TranMessController implements BaseController {
             executorService.execute(thread);
             threads.add(thread);
         }
-        guardThred = new DataGuardThred("fileName","usr/local/src/data");
+        guardThred = new DataGuardThred("fileName", "usr/local/src/data");
         executorService.execute(guardThred);
 
 
@@ -94,7 +98,7 @@ public class TranMessController implements BaseController {
             //100000个队列可能已经不够了
             System.out.println("cacheQueue is full.Offer data to guardQueue");
 
-        }else {
+        } else {
             boolean offer = guardThred.getGuardQueue().offer(mess);
             if (!result) {
                 System.out.println("GuardQueue is full.Offer data to guardQueue");
@@ -124,7 +128,7 @@ public class TranMessController implements BaseController {
         }
     }
 
-    private void doRun() throws InterruptedException {
+    private void doRun() throws  InterruptedException, ExecutionException {
 
         //取走BlockingQueue里排在首位的对象,若不能立即取出,则可以等time参数规定的时间,取不到时返回null
         String msg = cacheQueue.poll(15, KEEP_ALIVE_TIME_UNIT);
@@ -149,12 +153,13 @@ public class TranMessController implements BaseController {
         if (StringUtils.isNoneBlank(topic)) {
 
             byte[] recordByte = fst.asByteArray(notify);
-            ProducerRecord<byte[],byte[]> record = new ProducerRecord<byte[], byte[]>(
+            ProducerRecord<byte[], byte[]> record = new ProducerRecord<byte[], byte[]>(
                     topic,
                     recordByte,
                     recordByte
-                    );
+            );
 
+            kafkaProducer.sendSync(record);
         }
 
 

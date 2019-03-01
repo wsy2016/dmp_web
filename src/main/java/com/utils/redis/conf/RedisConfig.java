@@ -1,5 +1,6 @@
 package com.utils.redis.conf;
 
+import jdk.nashorn.internal.objects.annotations.Property;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -29,45 +30,43 @@ public class RedisConfig {
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
 
-
     /**
      * 节点名称
      */
-    private String nodes ="192.168.1.205:26379,192.168.1.206:26379,192.168.1.207:26379";
+    private String nodes;
 
     /**
      * Redis服务名称
      */
-    private String masterName ="artisanRedis";
+    private String masterName;
 
     /**
      * 密码
      */
-    private String password ="abc123456";
+    private String password;
 
     /**
      * 最大连接数
      */
-    private int maxTotal =10000;
+    private int maxTotal;
 
     /**
      * 最大空闲数
      */
-    private int maxIdle =100;
+    private int maxIdle;
 
     /**
      * 最小空闲数
      */
-    private int minIdle =100;
+    private int minIdle;
 
     /**
      * 连接超时时间
      */
-    private int timeout = 1000;
+    private int timeout;
 
 
     /**
-     *
      * Description: 连接池配置
      * Author: wsy
      * Date: 2019/1/24 17:25
@@ -126,6 +125,70 @@ public class RedisConfig {
         JedisSentinelPool jedisPool = new JedisSentinelPool(masterName, nodeSet, jedisPoolConfig, timeout, password);
 
         return jedisPool;
+    }
+
+    public Logger getLog() {
+        return log;
+    }
+
+    public void setLog(Logger log) {
+        this.log = log;
+    }
+
+    public String getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(String nodes) {
+        this.nodes = nodes;
+    }
+
+    public String getMasterName() {
+        return masterName;
+    }
+
+    public void setMasterName(String masterName) {
+        this.masterName = masterName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getMaxTotal() {
+        return maxTotal;
+    }
+
+    public void setMaxTotal(int maxTotal) {
+        this.maxTotal = maxTotal;
+    }
+
+    public int getMaxIdle() {
+        return maxIdle;
+    }
+
+    public void setMaxIdle(int maxIdle) {
+        this.maxIdle = maxIdle;
+    }
+
+    public int getMinIdle() {
+        return minIdle;
+    }
+
+    public void setMinIdle(int minIdle) {
+        this.minIdle = minIdle;
+    }
+
+    public int getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
     }
 }
 
