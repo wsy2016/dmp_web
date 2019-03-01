@@ -1,15 +1,22 @@
 package com.realTime.controller;
 
 import com.beans.MessModel;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.handler.HMsgHandler;
 import com.realTime.controller.base.BaseController;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.nustaq.serialization.FSTConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -34,11 +41,20 @@ public class TranMessController implements BaseController {
     private int KEEP_ALIVE_TIME = 1;
     private TimeUnit KEEP_ALIVE_TIME_UNIT = TimeUnit.SECONDS;
 
-    private BlockingQueue<String> cacheQueue = Queues.newArrayBlockingQueue(100000);
 
-    private AtomicBoolean shutdown = new AtomicBoolean(false);
+    private List<Runnable> threads = Lists.newArrayList();
+    private BlockingQueue<String> cacheQueue = Queues.newArrayBlockingQueue(100000);
+    private FSTConfiguration fst = FSTConfiguration.createDefaultConfiguration();
+
+    //自带线程安全光环 在多线程处理中所有要判断的地方都要
+    private AtomicBoolean shutdown = new AtomicBoolean(true);
+
+
+    private HMsgHandler hMsgHandler;
 
     private String topic;
+
+    private String tableName = "EVEN_MESS_XZT";
 
     @Override
     public void init() {
@@ -54,13 +70,25 @@ public class TranMessController implements BaseController {
                 taskQueue,
                 threadFactory);
         for (int i = 0; i < 8; i++) {
-            //启动kafka生成线程
-            executorService.execute(new kafkaThread("t" + i));
+            //启动kafka-product线程
+            kafkaThread thread = new kafkaThread("t" + i);
+            executorService.execute(thread);
+            threads.add(thread);
         }
+
+        hMsgHandler.start();
 
     }
 
-    public void
+    @RequestMapping("/xzt/sb")
+    public void receiveMess(String mess) {
+        boolean result = cacheQueue.offer(mess);
+        if (!result) {
+            //100000个队列可能已经不够了
+            System.out.println("cacheQueue is full.Offer data to guardQueue");
+
+        }
+    }
 
     private class kafkaThread implements Runnable {
         private String threadName;
@@ -71,6 +99,7 @@ public class TranMessController implements BaseController {
 
         @Override
         public void run() {
+            //线程安全的考虑
             while (shutdown.get() || cacheQueue.size() > 0) {
                 try {
                     doRun();
@@ -102,6 +131,19 @@ public class TranMessController implements BaseController {
         } else if ("2".equals(type)) {
             topic = "xztQuery";
         }
+        String messageKey = notify.createRowKey();
+        hMsgHandler.saveReceiveMess(tableName, messageKey, msg);
+        if (StringUtils.isNoneBlank(topic)) {
+
+            byte[] recordByte = fst.asByteArray(notify);
+            ProducerRecord<byte[],byte[]> record = new ProducerRecord<byte[], byte[]>(
+                    topic,
+                    recordByte,
+                    recordByte
+                    );
+
+        }
+
 
     }
 

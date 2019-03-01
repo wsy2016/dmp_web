@@ -1,5 +1,7 @@
 package com.beans;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Date;
 
 /**
@@ -35,10 +37,19 @@ public class MessModel {
         this.tranTime = tranTime;
     }
 
+
+    /**
+    *   rowkey:分区号-交易类型-卡号-时间
+    * */
     public String createRowKey() {
-        return "hh";
+        String ckey = String.join(type,"-",cardNbr);
+        ckey = this.generratRowkey(ckey);
+        return StringUtils.join(ckey,"-",tranTime);
     }
 
+    private String generratRowkey(String key){
+        return key;
+    }
     public String getName() {
         return name;
     }

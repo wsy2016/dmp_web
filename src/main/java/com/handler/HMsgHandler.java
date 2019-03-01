@@ -86,6 +86,7 @@ public class HMsgHandler {
         for (int i = 0; i < 5; i++) {
             LogWriterThread thread = new LogWriterThread();
             thread.setName(StringUtils.join(this.getClass().getSimpleName(), "_", i));
+            thread.start();
         }
 
     }
