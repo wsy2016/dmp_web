@@ -1,4 +1,4 @@
-package com.beans.thread;
+package thread;
 
 import java.util.List;
 import java.util.Vector;

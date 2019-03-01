@@ -1,6 +1,7 @@
 package com.realTime.controller;
 
 import com.beans.MessModel;
+import com.beans.thread.DataGuardThred;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
@@ -52,6 +53,8 @@ public class TranMessController implements BaseController {
 
     private HMsgHandler hMsgHandler;
 
+    DataGuardThred guardThred;
+
     private String topic;
 
     private String tableName = "EVEN_MESS_XZT";
@@ -75,6 +78,9 @@ public class TranMessController implements BaseController {
             executorService.execute(thread);
             threads.add(thread);
         }
+        guardThred = new DataGuardThred("fileName","usr/local/src/data");
+        executorService.execute(guardThred);
+
 
         hMsgHandler.start();
 
@@ -87,6 +93,12 @@ public class TranMessController implements BaseController {
             //100000个队列可能已经不够了
             System.out.println("cacheQueue is full.Offer data to guardQueue");
 
+        }else {
+            boolean offer = guardThred.getGuardQueue().offer(mess);
+            if (!result) {
+                System.out.println("GuardQueue is full.Offer data to guardQueue");
+
+            }
         }
     }
 

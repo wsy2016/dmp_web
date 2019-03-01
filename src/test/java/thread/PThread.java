@@ -1,4 +1,4 @@
-package com.beans.thread;
+package thread;
 
 /**
  * Description:
