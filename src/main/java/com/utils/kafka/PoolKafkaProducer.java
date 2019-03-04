@@ -24,7 +24,7 @@ import java.util.concurrent.ExecutionException;
 public class PoolKafkaProducer {
 
 
-    @Autowired
+    //@Autowired 没有集群
     private ConcurrentLinkedPool<KafkaProducer> pool;
 
     public void sendSync(ProducerRecord record) throws InterruptedException, ExecutionException {

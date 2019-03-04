@@ -148,6 +148,7 @@ public class TranMessController implements BaseController {
         } else if ("2".equals(type)) {
             topic = "xztQuery";
         }
+        //重点rowkey的生成
         String messageKey = notify.createRowKey();
         hMsgHandler.saveReceiveMess(tableName, messageKey, msg);
         if (StringUtils.isNoneBlank(topic)) {
