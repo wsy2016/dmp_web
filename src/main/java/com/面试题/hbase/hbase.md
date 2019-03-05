@@ -49,3 +49,9 @@ Reported time is too far out of sync with master，将节点时间同步即可
 11.HBase Shell 增删改异常
 错误信息：zookeeper.ClientCnxn: Session 0x0 for server null,unexpected error, closing socket connection and attempting reconnect 
 解决方法：将hadoop中hadoop【对应版本】相关的jar包copy过来（${HABASE_HOME}/lib）替换可。
+
+12 hbase怎么预分区？
+13.hbase怎么给web前台提供接口来访问？
+14.htable API有没有线程安全问题，在程序中是单例还是多例？
+15.我们的hbase大概在公司业务中（主要是网上商城）大概都几个表，几个表簇，大概都存什么样的数据？
+16.hbase的并发问题？
