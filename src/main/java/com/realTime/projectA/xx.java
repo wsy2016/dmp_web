@@ -1,4 +1,4 @@
-package com.realTime.ProjiectA;
+package com.realTime.projectA;
 
 /**
  * Description:

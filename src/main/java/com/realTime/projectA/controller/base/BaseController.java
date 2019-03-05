@@ -1,4 +1,4 @@
-package com.realTime.ProjiectA.controller.base;
+package com.realTime.projectA.controller.base;
 
 /**
  * Description:

@@ -1,7 +1,7 @@
 package com.beans.thread;
 
 import com.google.common.collect.Queues;
-import com.realTime.ProjiectA.controller.TranMessController;
+import com.realTime.projectA.controller.TranMessController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,4 +1,4 @@
-package com.realTime.ProjiectA.controller;
+package com.realTime.projectA.controller;
 
 import com.beans.MessModel;
 import com.beans.thread.DataGuardThred;
@@ -6,7 +6,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.utils.hbase.HMsgHandler;
-import com.realTime.ProjiectA.controller.base.BaseController;
+import com.realTime.projectA.controller.base.BaseController;
 import com.utils.kafka.PoolKafkaProducer;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.producer.ProducerRecord;
