@@ -1,18 +1,16 @@
-package storm;
-
-import java.util.Base64;
+package com.realTime.projectB;
 
 /**
  * Description:
  * <p>
  * Author: wsy
  * <p>
- * Date: 2019/3/4 17:47
+ * Date: 2019/3/5 17:45
  */
-public class wcSpout {
-    
+public class Topoloy {
     public static void  main(String[] args){
     
-
+        
+    
     }
 }
