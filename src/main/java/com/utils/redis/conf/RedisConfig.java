@@ -99,7 +99,7 @@ public class RedisConfig {
      * Param: [jedisPoolConfig]
      * Return: redis.clients.jedis.JedisSentinelPool
      */
-    @Bean(value = "jedisSentinelPool")
+    //@Bean(value = "jedisSentinelPool")
     public JedisSentinelPool initJedisPool(@Qualifier(value = "jedisPoolConfig") JedisPoolConfig jedisPoolConfig) {
 
         Set<String> nodeSet = new HashSet<>();

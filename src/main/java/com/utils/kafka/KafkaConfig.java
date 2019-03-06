@@ -43,7 +43,7 @@ public class KafkaConfig {
     private int maxSize = 50;
 
 
-    @Bean(value = "concurrentLinkedPool")
+    //@Bean(value = "concurrentLinkedPool")
     public ConcurrentLinkedPool<KafkaProducer> initLinkedPool() {
         KafkaProducerFactory kafkaProducerFactory = new KafkaProducerFactory();
         return new ConcurrentLinkedPool(kafkaProducerFactory, initToalSize, maxSize, false);

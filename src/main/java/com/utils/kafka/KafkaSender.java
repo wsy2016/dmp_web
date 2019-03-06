@@ -14,9 +14,9 @@ import java.time.format.DateTimeFormatter;
  * <p>
  * Date: 2019/3/1 18:59
  */
-@Component
+//@Component
 public class KafkaSender {
-    @Autowired
+    //@Autowired
     private KafkaTemplate kafkaTemplate;
 
     /**

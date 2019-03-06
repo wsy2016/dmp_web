@@ -10,14 +10,14 @@ import org.springframework.stereotype.Component;
  * <p>
  * Date: 2019/3/1 19:00
  */
-@Component
+//@Component
 public class KafkaConsumer {
 
     /**
      * 监听test主题,有消息就读取
      * @param message
      */
-    @KafkaListener(topics = {"test"})
+   // @KafkaListener(topics = {"test"})
     public void consumer(String message){
         System.out.println("test topic message : {}"+ message);
     }
