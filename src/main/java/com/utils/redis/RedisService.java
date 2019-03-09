@@ -21,7 +21,31 @@ public class RedisService {
     //@Autowired 没有集群不能初始化
     private JedisSentinelPool jedisSentinelPool;
 
-
+    /**
+     * 简单介绍redis [详情见redis.md]
+     * 一类型
+     *  string       计数,参数
+     *  hash(散列)    结构对象(单点登录user对象)
+     *  list(队列)    可重复,消息队列
+     *  set (集合)
+     *  sortset(有序集合)
+     *
+     * 二特点
+     *  单线程
+     *  主从集群,哨兵集群
+     *
+     * 三项目应用
+     *   红包计数
+     *   脚本缓存
+     *   结果落地
+     *
+     * 四难点
+     *  双写
+     *  雪崩
+     *  穿透
+     *  并发竞争(分布式锁)
+     *
+     * */
 
 
     private <T> T execute(Function<T, Jedis> fun) {
@@ -84,7 +108,7 @@ public class RedisService {
         this.execute(new Function<Object, Jedis>() {
             @Override
             public Object callback(Jedis jedis) {
-                jedis.sadd(key,valueStr);
+                jedis.sadd(key, valueStr);
                 return null;
             }
         });
@@ -95,7 +119,7 @@ public class RedisService {
         this.execute(new Function<Object, Jedis>() {
             @Override
             public Object callback(Jedis jedis) {
-                jedis.sadd(key,valueStr);
+                jedis.sadd(key, valueStr);
                 return null;
             }
         });
