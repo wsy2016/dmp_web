@@ -7,6 +7,7 @@ import backtype.storm.topology.base.BaseRichBolt;
 import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Tuple;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -19,16 +20,35 @@ import java.util.Map;
 public class WcBolt extends BaseRichBolt {
 
 
-    private OutputCollector collector;
+    private Integer boltCount = 1;
+
+    Map<String, Integer> countMap = new HashMap<>();
+    long timeMillis = 0;
 
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector collector) {
-        this.collector = collector;
+        timeMillis = System.currentTimeMillis();
     }
 
     @Override
     public void execute(Tuple tuple) {
         String msg = tuple.getStringByField("msg");
+        if (countMap.containsKey(msg)) {
+            Integer count = countMap.get(msg);
+            count++;
+            countMap.put(msg, count);
+        } else {
+            countMap.put(msg, 1);
+        }
+        System.out.println("-------------------" + boltCount + "--------------------");
+        for (String key : countMap.keySet()) {
+            System.out.println("key: " + key + "<<<<<>>>>>" + " count: " + countMap.get(key));
+        }
+        System.out.println("bolt user time:"+(System.currentTimeMillis()-timeMillis+"毫秒"));
+        System.out.println("-------------------" + boltCount + "--------------------");
+        boltCount++;
+
+
     }
 
     @Override

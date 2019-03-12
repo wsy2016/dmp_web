@@ -2,7 +2,9 @@ package com.realTime.projectB.demo_1;
 
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
+import backtype.storm.topology.BoltDeclarer;
 import backtype.storm.topology.TopologyBuilder;
+import backtype.storm.tuple.Fields;
 
 import java.util.Locale;
 
@@ -17,7 +19,8 @@ public class WcTopoloy {
 
 
     private final static String spoutId = "wcSpout";
-    private final static String boltId = "wcSpout";
+    private final static String boltId = "wcBolt";
+    private static BoltDeclarer boltDeclarer;
 
     public static void main(String[] args) {
 
@@ -29,14 +32,14 @@ public class WcTopoloy {
         WcBolt wcBolt = new WcBolt();
 
         //注册spout和bolt 并发度
-        builder.setSpout(spoutId, wcSpout, 5);
+        builder.setSpout(spoutId, wcSpout, 1);
 
         /*
          * 假设: spout有1000行数据
          * shuffleGrouping:bolt的每个parallelism随机分配到1000/5 = 200个
          *
          * */
-        builder.setBolt(boltId, wcBolt, 5).shuffleGrouping(spoutId);
+        boltDeclarer = builder.setBolt(boltId, wcBolt, 1).fieldsGrouping(spoutId,new Fields("msg"));
 
         if (args.length > 0) {
             System.out.println("集群模式");
