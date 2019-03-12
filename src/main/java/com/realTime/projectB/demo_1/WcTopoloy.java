@@ -1,6 +1,7 @@
 package com.realTime.projectB.demo_1;
 
 import backtype.storm.Config;
+import backtype.storm.LocalCluster;
 import backtype.storm.topology.TopologyBuilder;
 
 import java.util.Locale;
@@ -22,7 +23,7 @@ public class WcTopoloy {
 
         TopologyBuilder builder = new TopologyBuilder();
         Config conf = new Config();
-        conf.setDebug(true);
+        conf.setDebug(false);
 
         WcSpout wcSpout = new WcSpout();
         WcBolt wcBolt = new WcBolt();
@@ -31,13 +32,19 @@ public class WcTopoloy {
         builder.setSpout(spoutId, wcSpout, 5);
 
         /*
-        * 假设: spout有1000行数据
-        * shuffleGrouping:bolt的每个parallelism随机分配到1000/5 = 200个
-        *
-        * */
+         * 假设: spout有1000行数据
+         * shuffleGrouping:bolt的每个parallelism随机分配到1000/5 = 200个
+         *
+         * */
         builder.setBolt(boltId, wcBolt, 5).shuffleGrouping(spoutId);
 
+        if (args.length > 0) {
+            System.out.println("集群模式");
+        }else {
+            LocalCluster cluster = new LocalCluster();
+            cluster.submitTopology("wc_topo",conf,builder.createTopology());
 
+        }
 
 
     }
