@@ -32,11 +32,13 @@ public class KafkaSpoutTopo {
     private static final String MY_TOPIC = "test_topic";
 
     /**
-     * kafkaSpout的id
+     * group
+     * 一个topic里面的分区只能被消费组里面的一个消费者消费
+     * topic(P0,P1,P2)
+     * group(c1,c2)
+     * c1消费(P0) c2消费(P1,P2)
      */
-    private static final String ID = "myTrack";
-    private static final String SPOUT_ID = "mySpout";
-    private static final String SBOLT_ID = "myBolt";
+    private static final String GROUP_ID = "myTrack";
 
     /**
      * zookeeper的nodes
@@ -48,6 +50,10 @@ public class KafkaSpoutTopo {
      */
     private final static int SOCK_TIME = 60 * 10000;
 
+    private static final String SPOUT_ID = "mySpout";
+    private static final String SBOLT_ID = "myBolt";
+    private static final String TOPO_NAME = "kafkaTopo";
+
 
     public static void main(String[] args) throws InterruptedException, AlreadyAliveException, InvalidTopologyException {
 
@@ -57,8 +63,12 @@ public class KafkaSpoutTopo {
          * */
         ZkHosts zkHosts = new ZkHosts(ZK_HOSTS);
 
-        //BrokerHosts hosts, String topic, String zkRoot, String id
-        SpoutConfig spoutConfig = new SpoutConfig(zkHosts, MY_TOPIC, "", ID);
+        /**
+         *   zkRoot -- zook记录offset的路径(/counsumers/${GROUP_ID}/offsets/log/${kafka.paralleid})
+         *   topic的paralltion只能配该组的一个消费者消费
+         *
+         * */
+        SpoutConfig spoutConfig = new SpoutConfig(zkHosts, MY_TOPIC, "", GROUP_ID);
 
         //设置如何处理kafka消息队列输入流{生成者的格式保持一致}
         spoutConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
@@ -94,13 +104,13 @@ public class KafkaSpoutTopo {
         if (args.length == 0) {
             LocalCluster cluster = new LocalCluster();
             //提交本地集群
-            cluster.submitTopology("test", conf, builder.createTopology());
+            cluster.submitTopology(TOPO_NAME, conf, builder.createTopology());
             //等待6s之后关闭集群
             Thread.sleep(6000);
             //关闭集群
             cluster.shutdown();
         }
-        StormSubmitter.submitTopology("test", conf, builder.createTopology());
+        StormSubmitter.submitTopology(TOPO_NAME, conf, builder.createTopology());
 
     }
 }
