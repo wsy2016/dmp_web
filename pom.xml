@@ -29,6 +29,7 @@
         <hbase.version>0.98.6-hadoop2</hbase.version>
         <kafka.version>0.8.2.1</kafka.version>
         <vibur.version>4.0</vibur.version>
+        <storm.version>0.9.6</storm.version>
     </properties>
     <dependencies>
 
@@ -69,17 +70,19 @@
             <artifactId>hadoop-client</artifactId>
             <version>${hadoop.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka-clients</artifactId>
-            <version>0.8.2.1</version>
-        </dependency>
 
+        <!--storm-->
         <dependency>
             <groupId>org.apache.storm</groupId>
             <artifactId>storm-core</artifactId>
+            <version>${storm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.storm</groupId>
+            <artifactId>storm-kafka</artifactId>
             <version>0.9.6</version>
         </dependency>
+
         <!-- hbase client -->
         <dependency>
             <groupId>org.apache.hbase</groupId>
@@ -92,20 +95,15 @@
             <version>${hbase.version}</version>
         </dependency>
 
+        <!--kafka支持-->
         <dependency>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka_2.9.2</artifactId>
-            <version>0.8.2.1</version>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
             <version>${kafka.version}</version>
-        </dependency>
-        <!--kafka支持-->
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
         </dependency>
 
         <!-- util -->
