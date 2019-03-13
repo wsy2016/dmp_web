@@ -7,6 +7,9 @@ import backtype.storm.generated.AlreadyAliveException;
 import backtype.storm.generated.InvalidTopologyException;
 import backtype.storm.spout.SchemeAsMultiScheme;
 import backtype.storm.topology.TopologyBuilder;
+import com.sun.scenario.effect.Offset;
+import kafka.api.OffsetRequest;
+import org.apache.kafka.common.requests.OffsetCommitRequest;
 import storm.kafka.KafkaSpout;
 import storm.kafka.SpoutConfig;
 import storm.kafka.StringScheme;
@@ -83,6 +86,12 @@ public class KafkaSpoutTopo {
         spoutConfig.zkServers = zkHostList;
         spoutConfig.zkPort = zkPort;
         spoutConfig.socketTimeoutMs = SOCK_TIME;
+
+        /**
+        *    默认 EarliestTime() 每次重启都是重最早的开始
+         *       现在设置最新的offset
+         * */
+        spoutConfig.startOffsetTime = OffsetRequest.LatestTime();
 
 
         TopologyBuilder builder = new TopologyBuilder();
