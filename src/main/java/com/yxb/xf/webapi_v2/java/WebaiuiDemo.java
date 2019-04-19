@@ -30,7 +30,7 @@ public class WebaiuiDemo {
 	private static final String URL = "http://openapi.xfyun.cn/v2/aiui";
 	private static final String APPID = "5cb9044f";
 	private static final String API_KEY = "dc396461fb9758b76fcf1b9a9e56ab69";
-	private static final String DATA_TYPE = "audi";
+	private static final String DATA_TYPE = "audio";
 	private static final String SCENE = "main";
 	private static final String SAMPLE_RATE = "16000";
 	private static final String AUTH_ID = "dedcace7ac509d33ce5bd08fd71e93ad";
@@ -41,7 +41,7 @@ public class WebaiuiDemo {
 	
 	public static void main(String[] args) throws IOException,ParseException, InterruptedException{
 		Map<String, String> header = buildHeader();
-		byte[] dataByteArray = "你好".getBytes();
+		byte[] dataByteArray = readFile("/Users/wensiyang/Documents/sofeware/idea/projiect/dmp_web/src/main/java/com/yxb/xf/webapi_v2/resource/bj_weather.wav");
 		String result = httpPost(URL, header, dataByteArray);
 		System.out.println(result);		
 	}
@@ -62,18 +62,18 @@ public class WebaiuiDemo {
 		return header;
 	}
 	
-//	private static byte[] readFile(String filePath) throws IOException {
-//		InputStream in = new FileInputStream(filePath);
-//		ByteArrayOutputStream out = new ByteArrayOutputStream();
-//		byte[] buffer = new byte[1024 * 4];
-//		int n = 0;
-//		while ((n = in.read(buffer)) != -1) {
-//			out.write(buffer, 0, n);
-//		}
-//		byte[] data = out.toByteArray();
-//		in.close();
-//		return data;
-//	}
+	private static byte[] readFile(String filePath) throws IOException {
+		InputStream in = new FileInputStream(filePath);
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		byte[] buffer = new byte[1024 * 4];
+		int n = 0;
+		while ((n = in.read(buffer)) != -1) {
+			out.write(buffer, 0, n);
+		}
+		byte[] data = out.toByteArray();
+		in.close();
+		return data;
+	}
 	
 	private static String httpPost(String url, Map<String, String> header, byte[] body) {
 		String result = "";
