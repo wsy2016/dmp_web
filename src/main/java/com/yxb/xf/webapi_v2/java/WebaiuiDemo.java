@@ -13,8 +13,11 @@ import java.net.URL;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.alibaba.fastjson.JSON;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
+import scala.annotation.target.param;
 
 /**
  * AIUI WebAPI V2接口调用示例
@@ -30,25 +33,43 @@ public class WebaiuiDemo {
 	private static final String URL = "http://openapi.xfyun.cn/v2/aiui";
 	private static final String APPID = "5cb9044f";
 	private static final String API_KEY = "dc396461fb9758b76fcf1b9a9e56ab69";
-	private static final String DATA_TYPE = "audio";
+	private static final String DATA_TYPE_AUDIO = "audio";
+	private static final String DATA_TYPE_TEXT = "text";
 	private static final String SCENE = "main";
 	private static final String SAMPLE_RATE = "16000";
 	private static final String AUTH_ID = "dedcace7ac509d33ce5bd08fd71e93ad";
 	private static final String AUE = "raw";
-	private static final String FILE_PATH = "";
+	//结果级别 complete/完整
+	private static final String RESULT_LEVEL = "complete";
+	//
+	private static final String topn = "4";
+
+
+	private static final String FILE_PATH = "/Users/wensiyang/Documents/sofeware/idea/projiect/dmp_web/src/main/java/com/yxb/xf/webapi_v2/resource/16kVoice.pcm";
 	// 个性化参数，需转义
 	private static final String PERS_PARAM = "{\\\"auth_id\\\":\\\"2894c985bf8b1111c6728db79d3479ae\\\"}";
 	
 	public static void main(String[] args) throws IOException,ParseException, InterruptedException{
 		Map<String, String> header = buildHeader();
-		byte[] dataByteArray = readFile("/Users/wensiyang/Documents/sofeware/idea/projiect/dmp_web/src/main/java/com/yxb/xf/webapi_v2/resource/bj_weather.wav");
+		byte[] dataByteArray = readFile(FILE_PATH);
+		//byte[] dataByteArray = "北京天气怎么用".getBytes();
 		String result = httpPost(URL, header, dataByteArray);
 		System.out.println(result);		
 	}
 
 	private static Map<String, String> buildHeader() throws UnsupportedEncodingException, ParseException {
 		String curTime = System.currentTimeMillis() / 1000L + "";
-		String param = "{\"aue\":\""+AUE+"\",\"sample_rate\":\""+SAMPLE_RATE+"\",\"auth_id\":\""+AUTH_ID+"\",\"data_type\":\""+DATA_TYPE+"\",\"scene\":\""+SCENE+"\"}";		
+		Map<String,String> map = new HashMap<>();
+		//音频编码
+		map.put("aue",AUE);
+		//音频采样率
+		map.put("sample_rate",SAMPLE_RATE);
+		map.put("auth_id",AUTH_ID);
+		map.put("scene",SCENE);
+		map.put("data_type",DATA_TYPE_AUDIO);
+		map.put("result_level",RESULT_LEVEL);
+		map.put("topn","4");
+		String param = JSON.toJSONString(map);
 		//使用个性化参数时参数格式如下：
 		//String param = "{\"aue\":\""+AUE+"\",\"sample_rate\":\""+SAMPLE_RATE+"\",\"auth_id\":\""+AUTH_ID+"\",\"data_type\":\""+DATA_TYPE+"\",\"scene\":\""+SCENE+"\",\"pers_param\":\""+PERS_PARAM+"\"}";
 		String paramBase64 = new String(Base64.encodeBase64(param.getBytes("UTF-8")));

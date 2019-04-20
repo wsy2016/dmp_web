@@ -1,0 +1,328 @@
+{
+  "data": [
+    {
+      "sub": "iat",
+      "auth_id": "dedcace7ac509d33ce5bd08fd71e93ad",
+      "text": {
+        "bg": 0,
+        "ed": 0,
+        "ls": false,
+        "sn": 1,
+        "ws": [
+          {
+            "bg": 0,
+            "cw": [
+              {
+                "sc": 0,
+                "w": "北京"
+              }
+            ]
+          },
+          {
+            "bg": 0,
+            "cw": [
+              {
+                "sc": 0,
+                "w": "明天"
+              }
+            ]
+          },
+          {
+            "bg": 0,
+            "cw": [
+              {
+                "sc": 0,
+                "w": "的"
+              }
+            ]
+          },
+          {
+            "bg": 0,
+            "cw": [
+              {
+                "sc": 0,
+                "w": "天气"
+              }
+            ]
+          },
+          {
+            "bg": 0,
+            "cw": [
+              {
+                "sc": 0,
+                "w": "怎么样"
+              }
+            ]
+          }
+        ]
+      },
+      "result_id": 1
+    },
+    {
+      "sub": "iat",
+      "auth_id": "dedcace7ac509d33ce5bd08fd71e93ad",
+      "text": {
+        "bg": 0,
+        "ed": 0,
+        "ls": true,
+        "sn": 2,
+        "ws": [
+          {
+            "bg": 0,
+            "cw": [
+              {
+                "sc": 0,
+                "w": ""
+              }
+            ]
+          }
+        ]
+      },
+      "result_id": 2
+    },
+    {
+      "sub": "nlp",
+      "auth_id": "dedcace7ac509d33ce5bd08fd71e93ad",
+      "intent": {},
+      "result_id": 2
+    },
+    {
+      "sub": "nlp",
+      "auth_id": "dedcace7ac509d33ce5bd08fd71e93ad",
+      "intent": {
+        "answer": {
+          "text": "北京明天全天小雨转多云，出门记得带伞，气温8℃ ~ 15℃，有北风3-4级，有点凉。",
+          "type": "T"
+        },
+        "data": {
+          "result": [
+            {
+              "airData": 49,
+              "airQuality": "优",
+              "city": "北京市",
+              "date": "2019-04-19",
+              "dateLong": 1555603200,
+              "date_for_voice": "今天",
+              "exp": {
+                "ct": {
+                  "expName": "穿衣指数",
+                  "level": "温凉",
+                  "prompt": "天气偏凉，增加衣物厚度。"
+                },
+                "dy": {
+                  "expName": "钓鱼指数",
+                  "level": "较适宜",
+                  "prompt": "温差稍大，鱼儿不太活跃，可能会对钓鱼产生影响。"
+                },
+                "gm": {
+                  "expName": "感冒指数",
+                  "level": "易发",
+                  "prompt": "感冒容易发生，少去人群密集的场所有利于降低感冒的几率。"
+                },
+                "jt": {
+                  "expName": "交通指数",
+                  "level": "很差",
+                  "prompt": "天气较好，但能见度很低，交通气象条件很差，车辆行驶缓慢，尽量减少出行。"
+                },
+                "tr": {
+                  "expName": "旅游指数",
+                  "level": "适宜",
+                  "prompt": "温度适宜，又有较弱降水和微风作伴，会给您的旅行带来意想不到的景象，适宜旅游，可不要错过机会呦！"
+                },
+                "uv": {
+                  "expName": "紫外线指数",
+                  "level": "最弱",
+                  "prompt": "辐射弱，涂擦SPF8-12防晒护肤品。"
+                },
+                "xc": {
+                  "expName": "洗车指数",
+                  "level": "不宜",
+                  "prompt": "雨(雪)水和泥水会弄脏您的爱车，不适宜清洗车辆。"
+                },
+                "yd": {
+                  "expName": "运动指数",
+                  "level": "适宜",
+                  "prompt": "天气较好，且紫外线辐射不强，适宜户外运动。"
+                }
+              },
+              "humidity": "31%",
+              "img": "http://aiui-res.ufile.ucloud.com.cn/weather/01.png",
+              "lastUpdateTime": "2019-04-19 22:55:08",
+              "pm25": "29",
+              "temp": 13,
+              "tempHigh": "20℃",
+              "tempLow": "9℃",
+              "tempRange": "9℃ ~ 20℃",
+              "warning": "",
+              "weather": "阴",
+              "weatherDescription": "温度适宜，气温和昨天差不多。",
+              "weatherDescription3": "8℃到22℃，风不大，温度适宜。",
+              "weatherDescription7": "11℃到28℃，风不大，温度适宜。",
+              "weatherType": 1,
+              "week": "周五",
+              "wind": "南风微风",
+              "windLevel": 0
+            },
+            {
+              "city": "北京市",
+              "date": "2019-04-20",
+              "dateLong": 1555689600,
+              "date_for_voice": "明天",
+              "img": "http://aiui-res.ufile.ucloud.com.cn/weather/07.png",
+              "lastUpdateTime": "2019-04-19 22:55:08",
+              "tempHigh": "15℃",
+              "tempLow": "8℃",
+              "tempRange": "8℃ ~ 15℃",
+              "weather": "小雨转多云",
+              "weatherDescription": "有点凉。",
+              "weatherType": 7,
+              "week": "周六",
+              "wind": "北风3-4级",
+              "windLevel": 1
+            },
+            {
+              "city": "北京市",
+              "date": "2019-04-21",
+              "dateLong": 1555776000,
+              "date_for_voice": "后天",
+              "img": "http://aiui-res.ufile.ucloud.com.cn/weather/00.png",
+              "lastUpdateTime": "2019-04-19 22:55:08",
+              "tempHigh": "22℃",
+              "tempLow": "8℃",
+              "tempRange": "8℃ ~ 22℃",
+              "weather": "晴",
+              "weatherDescription": "温度适宜。",
+              "weatherType": 0,
+              "week": "周日",
+              "wind": "南风3-4级",
+              "windLevel": 1
+            },
+            {
+              "city": "北京市",
+              "date": "2019-04-22",
+              "dateLong": 1555862400,
+              "date_for_voice": "22号",
+              "img": "http://aiui-res.ufile.ucloud.com.cn/weather/00.png",
+              "lastUpdateTime": "2019-04-19 22:55:08",
+              "tempHigh": "25℃",
+              "tempLow": "12℃",
+              "tempRange": "12℃ ~ 25℃",
+              "weather": "晴",
+              "weatherDescription": "气候温暖。",
+              "weatherType": 0,
+              "week": "下周一",
+              "wind": "南风3-4级",
+              "windLevel": 1
+            },
+            {
+              "city": "北京市",
+              "date": "2019-04-23",
+              "dateLong": 1555948800,
+              "date_for_voice": "23号",
+              "img": "http://aiui-res.ufile.ucloud.com.cn/weather/01.png",
+              "lastUpdateTime": "2019-04-19 22:55:08",
+              "tempHigh": "28℃",
+              "tempLow": "16℃",
+              "tempRange": "16℃ ~ 28℃",
+              "weather": "多云",
+              "weatherDescription": "气候温暖。",
+              "weatherType": 1,
+              "week": "下周二",
+              "wind": "东南风3-4级",
+              "windLevel": 1
+            },
+            {
+              "city": "北京市",
+              "date": "2019-04-24",
+              "dateLong": 1556035200,
+              "date_for_voice": "24号",
+              "img": "http://aiui-res.ufile.ucloud.com.cn/weather/01.png",
+              "lastUpdateTime": "2019-04-19 22:55:08",
+              "tempHigh": "25℃",
+              "tempLow": "14℃",
+              "tempRange": "14℃ ~ 25℃",
+              "weather": "多云转小雨",
+              "weatherDescription": "气候温暖。",
+              "weatherType": 1,
+              "week": "下周三",
+              "wind": "东南风转东风3-4级",
+              "windLevel": 1
+            },
+            {
+              "city": "北京市",
+              "date": "2019-04-25",
+              "dateLong": 1556121600,
+              "date_for_voice": "25号",
+              "img": "http://aiui-res.ufile.ucloud.com.cn/weather/01.png",
+              "lastUpdateTime": "2019-04-19 22:55:08",
+              "tempHigh": "23℃",
+              "tempLow": "11℃",
+              "tempRange": "11℃ ~ 23℃",
+              "weather": "多云",
+              "weatherDescription": "温度适宜。",
+              "weatherType": 1,
+              "week": "下周四",
+              "wind": "东风转北风3-4级",
+              "windLevel": 1
+            }
+          ]
+        },
+        "dialog_stat": "DataValid",
+        "rc": 0,
+        "save_history": true,
+        "semantic": [
+          {
+            "intent": "QUERY",
+            "slots": [
+              {
+                "name": "datetime",
+                "normValue": "{\"datetime\":\"2019-04-20\",\"suggestDatetime\":\"2019-04-20\"}",
+                "value": "明天"
+              },
+              {
+                "name": "location.city",
+                "normValue": "北京市",
+                "value": "北京市"
+              },
+              {
+                "name": "location.cityAddr",
+                "normValue": "北京",
+                "value": "北京"
+              },
+              {
+                "name": "location.type",
+                "normValue": "LOC_BASIC",
+                "value": "LOC_BASIC"
+              },
+              {
+                "name": "queryType",
+                "value": "内容"
+              },
+              {
+                "name": "subfocus",
+                "value": "天气状态"
+              }
+            ]
+          }
+        ],
+        "service": "weather",
+        "sid": "atn15ccb646@dx000710153163a10e01",
+        "state": {
+          "fg::weather::default::default": {
+            "state": "default"
+          }
+        },
+        "text": "北京明天的天气怎么样",
+        "used_state": {
+          "state": "default",
+          "state_key": "fg::weather::default::default"
+        },
+        "uuid": "atn15ccb646@dx000710153163a10e01"
+      },
+      "result_id": 1
+    }
+  ],
+  "sid": "ara01a329c0@dx000110153162000100",
+  "code": "0",
+  "desc": "success"
+}
